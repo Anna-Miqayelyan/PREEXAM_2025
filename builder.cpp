@@ -1,86 +1,62 @@
 #include <iostream>
 #include <string>
 using namespace std;
+//producttt
+class Student{
+    public:
+    string name;
+    int age;
+    string university;
+    string major;
 
-// ---- Բարդ օբյեկտ (Product) ----
-class Computer {
-public:
-    string cpu;
-    string ram;
-    string storage;
-    string gpu;
+    void show(){
+        cout<<"Student info:\n";
+        cout<<"Name: "<<name<<endl<<"AGE: "<<age<<endl<<"University: "<<university<<endl<<"Major: "<<major<<endl;
 
-    void show() {
-        cout << "Computer Specs:\n";
-        cout << "- CPU: " << cpu << endl;
-        cout << "- RAM: " << ram << endl;
-        cout << "- Storage: " << storage << endl;
-        cout << "- GPU: " << gpu << endl;
     }
 };
 
-// ---- Builder ինտերֆեյս ----
-class ComputerBuilder {
-public:
-    virtual void setCPU() = 0;
-    virtual void setRAM() = 0;
-    virtual void setStorage() = 0;
-    virtual void setGPU() = 0;
-    virtual Computer* getComputer() = 0;
-    virtual ~ComputerBuilder() {}
-};
+//builderr
 
-// ---- Կոնկրետ Builder ----
-class GamingComputerBuilder : public ComputerBuilder {
-    Computer* comp;
-public:
-    GamingComputerBuilder() {
-        comp = new Computer();
+class StudentBuilder{
+    private:
+    Student* student;
+    public:
+    StudentBuilder(){
+        student=new Student();
     }
 
-    void setCPU() override {
-        comp->cpu = "Intel Core i9";
+    StudentBuilder* setName(string n){
+        student->name=n;
+        return this;
     }
-
-    void setRAM() override {
-        comp->ram = "32GB DDR5";
+    StudentBuilder* setAge(int a){
+        student->age=a;
+        return this;
     }
-
-    void setStorage() override {
-        comp->storage = "1TB SSD";
+    StudentBuilder* setUnversity(string u){
+        student->university=u;
+    return this;
     }
-
-    void setGPU() override {
-        comp->gpu = "NVIDIA RTX 4090";
+    StudentBuilder* setMajor(string m){
+        student->major=m;
+        return this;
     }
-
-    Computer* getComputer() override {
-        return comp;
+    Student* build(){
+        return student;
     }
 };
 
-// ---- Director ----
-class Technician {
-public:
-    void buildComputer(ComputerBuilder* builder) {
-        builder->setCPU();
-        builder->setRAM();
-        builder->setStorage();
-        builder->setGPU();
-    }
-};
+int main(){
+    StudentBuilder sb;
+   sb.setName("ANNA");
+   sb.setAge(20);
+   sb.setUnversity("NPUA");
+   sb.setMajor("Software Engineer");
+  Student* s=sb.build();
+  s->show();
 
-// ---- Գլխավոր ----
-int main() {
-    ComputerBuilder* builder = new GamingComputerBuilder();
-    Technician tech;
 
-    tech.buildComputer(builder);
-    Computer* pc = builder->getComputer();
-    pc->show();
 
-    delete pc;
-    delete builder;
 
-    return 0;
 }
