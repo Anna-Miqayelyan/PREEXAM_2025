@@ -58,9 +58,7 @@ int main(){
     channel->uploadVideo("Observer Pattern Explained");
     channel->uploadVideo("C++ Smart Pointers Guide");
 
-    delete anna;
-    delete david;
-    delete channel;
+
 
     return 0;
 
