@@ -7,7 +7,7 @@ Deep(int val){
     data=new int(val);
 }
 Deep (const Deep& other){
-data=other.data;
+data=new int(*other.data);
 }
 void show(){
     cout<<"DEEP value: "<<*data<<" ADDR: "<<data<<endl;
@@ -17,7 +17,7 @@ void show(){
 int main(){
     Deep d(20);
     Deep a=d;
-d=24;
+    a=15;
 
     d.show();
     a.show();
